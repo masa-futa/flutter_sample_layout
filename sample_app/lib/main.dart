@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
-  runApp(BottomStateles());
+  runApp(DrawerSample());
 }
 
 /// 基本的なレイアウト
@@ -495,6 +495,7 @@ class ButtonState extends State<ButtonStateFul> {
  * =====================================================================================================================================
  */
 
+/// テキストフィールド
 class TextFieldSample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -720,6 +721,11 @@ class TextFormFieldState extends State<TextFieldStateFul> {
 
 }
 
+/**
+ * =====================================================================================================================================
+ */
+
+/// tabberについて
 class BottomStateles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -785,6 +791,155 @@ class PageWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 25
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/**
+ * =====================================================================================================================================
+ */
+
+/// Sliverについて
+class SliverAppBarSample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: "",
+        home: SliverAppBarSampleFul()
+    );
+  }
+}
+
+class SliverAppBarSampleFul extends StatefulWidget {
+  SliverAppBarGridSampleState createState() => SliverAppBarGridSampleState();
+
+}
+/// ListView
+class SliverAppBarSampleState extends State<SliverAppBarSampleFul> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("sliverAppBarSample"),
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            pinned: true,
+            snap: true,
+            expandedHeight: 100,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text("Demo"),
+            ),
+          ),
+          SliverFixedExtentList(
+            itemExtent: 200,
+            delegate: SliverChildBuilderDelegate( (contex, index) {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.lightBlue[100 * (index % 9)],
+                child: Text("list item$index", style: TextStyle(fontSize: 30),),
+              );
+              },
+                childCount: 11
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+/// Grid
+class SliverAppBarGridSampleState extends State<SliverAppBarSampleFul> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("sliverAppBarSample"),
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            pinned: true,
+            snap: true,
+            expandedHeight: 100,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text("Demo"),
+            ),
+          ),
+          SliverGrid(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              childAspectRatio: 4
+            ),
+              delegate: SliverChildBuilderDelegate( (context, index) {
+               return Container(
+                 alignment: Alignment.center,
+                 color: Colors.teal[100 * (index % 9)],
+                 child: Text("grid item $index"),
+               );
+              },
+                childCount: 100
+              ),
+          )
+        ]
+      ),
+    );
+  }
+}
+
+/**
+ * =====================================================================================================================================
+ */
+
+/// ドロワーについて
+class DrawerSample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: "",
+        home: DrawerSampleFul()
+    );
+  }
+}
+
+class DrawerSampleFul extends StatefulWidget {
+  DrawerSampleState createState() => DrawerSampleState();
+
+}
+
+class DrawerSampleState extends State<DrawerSampleFul> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("DrawerSample"),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+                child: Text("DrawerHeader"),
+              decoration: BoxDecoration(
+                color: Colors.blue
+              ),
+            ),
+            ListTile(
+              title: Text("item1"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            ListTile(
+              title: Text("item2"),
+              trailing: Icon(Icons.arrow_forward),
+            )
+          ],
         ),
       ),
     );
