@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
-  runApp(TextFieldSample());
+  runApp(BottomStateles());
 }
 
 /// 基本的なレイアウト
@@ -503,6 +503,25 @@ class TextFieldSample extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text("TextFieldSample"),
+          /// 左
+          leading: Icon(Icons.menu),
+          backgroundColor: Colors.orange,
+          centerTitle: true,
+          /// 右
+          actions: [
+            IconButton(
+              onPressed: () {},
+                icon: Icon(Icons.face, color: Colors.white,)
+            ),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.email, color: Colors.white,)
+            ),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.favorite, color: Colors.white,)
+            ),
+          ],
         ),
         body: TextFieldStateFul(),
       ),
@@ -699,4 +718,75 @@ class TextFormFieldState extends State<TextFieldStateFul> {
     }
   }
 
+}
+
+class BottomStateles extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "",
+      home: BottomStateFul()
+    );
+  }
+}
+
+class BottomStateFul extends StatefulWidget {
+  BottomNavigationBarState createState() => BottomNavigationBarState();
+
+}
+
+class BottomNavigationBarState extends State<BottomStateFul> {
+
+  int currentIndex = 0;
+  final pageWidget = [
+    PageWidget(color: Colors.white, title: "Home",),
+    PageWidget(color: Colors.blue, title: "Album",),
+    PageWidget(color: Colors.orange, title: "Chat",),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("BottomNavigationSample"),
+      ),
+      body: pageWidget.elementAt(currentIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home"), backgroundColor: Colors.lightBlue),
+          BottomNavigationBarItem(icon: Icon(Icons.photo_album), title: Text("Album"), backgroundColor: Colors.lightBlue),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), title: Text("Chat"), backgroundColor: Colors.lightBlue),
+        ],
+        currentIndex: currentIndex,
+        fixedColor: Colors.white,
+        onTap: onItemTapped,
+        type: BottomNavigationBarType.shifting,
+        backgroundColor: Colors.lightBlue,
+      ),
+    );
+  }
+  void onItemTapped(int index) => setState(() => currentIndex = index);
+
+}
+
+class PageWidget extends StatelessWidget {
+  final Color color;
+  final String title;
+
+  PageWidget({Key? key, required this.color, required this.title}):super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: color,
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 25
+          ),
+        ),
+      ),
+    );
+  }
 }
