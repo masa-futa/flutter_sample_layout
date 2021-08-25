@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:sample_app/sub_page.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -905,7 +906,11 @@ class DrawerSample extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: "",
-        home: DrawerSampleFul()
+        home: DrawerSampleFul(),
+      routes: <String, WidgetBuilder> {
+          "/home": (context) => DrawerSample(),
+        "/subPage": (context) => SubPage()
+      },
     );
   }
 }
@@ -940,6 +945,18 @@ class DrawerSampleState extends State<DrawerSampleFul> {
               trailing: Icon(Icons.arrow_forward),
             )
           ],
+        ),
+      ),
+      body: Container(
+        child: Center(
+          child: RaisedButton(
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return SubPage();
+            })), child: Text("次画面へ"),
+            // onPressed: () => Navigator.of(context).pushNamed("/subPage"), child: Text("次のページへ"),
+            // 次画面遷移後にpop()で戻ろうとすると、戻れなくなる（一方こうとなる）
+            // onPressed: () => Navigator.of(context).pushReplacementNamed("/subPage"), child: Text("次のページへ"),
+          ),
         ),
       ),
     );
